@@ -3,9 +3,9 @@
 
 require_once(dirname(__FILE__) . '/../util_themoviedb.php');
 require_once(dirname(__FILE__) . '/../search.inc.php');
-require_once(dirname(__FILE__) . '/douban.php');
+require_once(dirname(__FILE__) . '/../syno_themoviedb/douban.php');
 
-$SUPPORTED_TYPE = array('movie');
+$SUPPORTED_TYPE = array('tvshow', 'tvshow_episode');
 $SUPPORTED_PROPERTIES = array('title');
 
 
@@ -21,13 +21,11 @@ function ProcessDouban($input, $lang, $type, $limit, $search_properties, $allowg
 		return array();
 	}
 
-	//$query_data = json_decode( HTTPGETReques t('http: //api.9hut.cn/douban.php?q=' . $title ), true );
-	$query_data = getRequest('https://m.douban.com/search/?query=' . $title . '&type=movie');
-	$detailPath = array();
-	preg_match_all('/\/movie\/subject\/[0-9]+/', $query_data, $detailPath);
+	$query_data = array();
+	$query_data = json_decode( HTTPGETRequest(DOUBAN_SEARCH_API . urlencode($title) ), true );
 
 	//Get metadata
-	return GetMetadataDouban($detailPath[0], $lang);
+	return GetMetadataDouban($query_data, $lang);
 }
 //=========================================================
 // douban end

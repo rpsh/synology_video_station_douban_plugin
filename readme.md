@@ -1,16 +1,15 @@
-修改自帖子 http://www.gebi1.com/thread-261344-1-9.html?_dsign=39316681 的代码
+# 群晖 DS Video 豆瓣刮削器
 
-原贴的信息应该是来自豆瓣的api，目前已经关闭，部分数据可用是博主自己代理了一层，然后缓存了老数据。
+fork 自： https://github.com/jswh/synology_video_station_douban_plugin
 
-修改内容是直接抓取了网页信息。并且设置为电影和电视类型都可用。
+## 修改点
 
-使用：
+- 搜索使用豆瓣官方搜索接口
+- 豆瓣影片 Api 使用：https://douban.uieee.com/
+
+## 使用方法
+
 1. ssh 登录群晖系统
-2. 执行`wget https://raw.githubusercontent.com/jswh/synology_video_station_douban_plugin/master/install.sh`
+2. 执行`wget https://raw.githubusercontent.com/rpsh/synology_video_station_douban_plugin/master/install.sh`
 3. 执行`sudo bash install.sh uninstall` （第一次安装可以跳过这个步骤）
 4. 执行`sudo bash install.sh install`
-
-所有权利归老哥所有
-
-+++++++++
-2020-02-23 更新 使用 cloudflare workers 代理服务器间接访问豆瓣

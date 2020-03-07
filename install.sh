@@ -5,17 +5,16 @@ export PATH
 clear;
 
 # VAR   ******************************************************************
-vVersion='v201903170121';
+vVersion='v202003071711';
 vPlugins='/var/packages/VideoStation/target/plugins';
 vUI='/var/packages/VideoStation/target';
 vAction=$1;
-pack='https://github.com/jswh/synology_video_station_douban_plugin/archive/v1.2.tar.gz'
-dist='synology_video_station_douban_plugin-1.2'
+pack='https://github.com/rpsh/synology_video_station_douban_plugin/archive/v1.3.tar.gz'
+dist='synology_video_station_douban_plugin-1.3'
 # Logo  ******************************************************************
 CopyrightLogo="
-                         DS Video Douban Patch $vVersion
-                                    by atroy @2019
-                         http://9hut.com All Rights Reserved
+                        DS Video 豆瓣刮削器 $vVersion
+                        rpsh 基于 atroy、jswh 的代码修改
 
 ==========================================================================";
 echo "$CopyrightLogo";
@@ -42,8 +41,8 @@ function install()
         mv $vPlugins/syno_file_assets/episode.inc.php $vPlugins/syno_file_assets/episode.inc.php.orig
     fi;
 
-    wget --no-check-certificate $pack -O video_station_douban_patch.tar.gz;
-    tar -zxvf video_station_douban_patch.tar.gz
+    wget --no-check-certificate $pack -O syno_douban.tar.gz;
+    tar -zxvf syno_douban.tar.gz
 
         cd $dist
 
@@ -60,7 +59,7 @@ function install()
     cd -
 
     echo '==========================================================================';
-    echo "Congratulations, DS Video Douban Patch $vVersion install/upgrade completed.";
+    echo "恭喜, DS Video 豆瓣刮削器 $vVersion 安装/更新成功.";
     echo '==========================================================================';
 }
 
@@ -76,7 +75,7 @@ function uninstall()
 
     rm -rf /tmp/$dist;
 
-    echo 'Congratulations, DS Video Douban Patch uninstall completed.';
+    echo '恭喜, DS Video 豆瓣刮削器已卸载.';
     echo '==========================================================================';
 }
 
@@ -85,13 +84,13 @@ if [ "$vAction" == 'install' ]; then
     if [ ! -f "$vPlugins/syno_themoviedb/search.php.orig" ]; then
         install;
     else
-        echo 'Sorry, you have already installed DS Video Douban Patch.';
+        echo '注意！你已经安装豆瓣刮削器.';
         echo '==========================================================================';
         exit 1;
     fi;
 elif [ "$vAction" == 'uninstall' ]; then
     if [ ! -f "$vPlugins/syno_themoviedb/search.php.orig" ]; then
-        echo 'Sorry, you have not installed DS Video Douban Patch yet.';
+        echo '注意！你尚未安装豆瓣刮削器.';
         echo '==========================================================================';
         exit 1;
     else
@@ -100,7 +99,7 @@ elif [ "$vAction" == 'uninstall' ]; then
 elif [ "$vAction" == 'upgrade' ]; then
     install;
 else
-    echo 'Sorry, Failed to install DS Video Douban Patch.';
+    echo '抱歉，安装豆瓣刮削器失败.';
     echo '==========================================================================';
     exit 1
 fi;

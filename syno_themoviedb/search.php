@@ -8,7 +8,6 @@ require_once(dirname(__FILE__) . '/douban.php');
 $SUPPORTED_TYPE = array('movie');
 $SUPPORTED_PROPERTIES = array('title');
 
-
 //=========================================================
 // douban begin
 //=========================================================
@@ -21,13 +20,14 @@ function ProcessDouban($input, $lang, $type, $limit, $search_properties, $allowg
 		return array();
 	}
 
-	//$query_data = json_decode( HTTPGETReques t('http: //api.9hut.cn/douban.php?q=' . $title ), true );
-	$query_data = getRequest('https://m.douban.com/search/?query=' . $title . '&type=movie');
-	$detailPath = array();
-	preg_match_all('/\/movie\/subject\/[0-9]+/', $query_data, $detailPath);
+	//Search
+	$query_data = array();
+	$query_data = json_decode( HTTPGETRequest(DOUBAN_SEARCH_API . urlencode($title) ), true );
+
+	// error_log(print_r( $query_data, true), 3, "/var/packages/VideoStation/target/plugins/syno_thetvdb/my-douban-error.log");
 
 	//Get metadata
-	return GetMetadataDouban($detailPath[0], $lang);
+	return GetMetadataDouban($query_data, $lang);
 }
 //=========================================================
 // douban end
